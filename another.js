@@ -9,4 +9,13 @@
      };
      return Person;
    })();
+    var Animal = (function(){
+      function Animal(){
+
+      }
+      Animal.prototype(){
+
+      };
+      return Animal;
+    })();
 }());
