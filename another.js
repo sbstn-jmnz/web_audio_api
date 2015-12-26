@@ -4,19 +4,15 @@
      function Person(){
 
      }
-     Person.prototype(){
-
-     };
+     Person.prototype();
      return Person;
    })();
     var Animal = (function(){
       function Animal(){
 
       }
-      Animal.prototype(){
-
-      };
+      Animal.prototype();
       return Animal;
     })();
-
+    var animal = new Animal();
 }());
