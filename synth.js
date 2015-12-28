@@ -1,9 +1,18 @@
 var context = new AudioContext(),
   volume = context.createGain(),
-  sqareOscillators = {};
-  sawtoothOscillators = {};
+  sqareOscillators = {},
+  sawtoothOscillators = {},
+  analyser = context.createAnalyser(),
+  waveData = new Uint8Array(analyser.frequencyBinCount),
+  canvas = document.querySelector('#oscilloscope'),
+  canvasConntext = canvas.getContext('2d'),
+  canvasHeight = 150,
+  canvasWidth = 587;
+
 
   volume.gain.value = 0.5;
+
+  volume.connect(analyser);
   volume.connect(context.destination);
 
 var keyboard = new QwertyHancock({
@@ -40,3 +49,25 @@ keyboard.keyUp = function (note, frequency) {
   sqareOscillators[note].disconnect();
   sawtoothOscillators[note].disconnect();
 };
+
+var xWidth = canvasWidth / analyser.frequencyBinCount;
+
+var draw = function () {
+  requestAnimationFrame(function () {
+    canvas.width = canvasWidth;
+    analyser.getByteTimeDomainData(waveData);
+
+    for (var i = 0; i < waveData.length; i++) {
+      var yPosition = waveData[i] / 256,
+          xPosition = i * xWidth;
+
+      yPosition = yPosition * canvasHeight;
+      canvasConntext.lineTo(xPosition, yPosition);
+    }
+    canvasConntext.strokeStyle = 'yellow';
+    canvasConntext.stroke();
+    draw();
+  });
+};
+
+draw();

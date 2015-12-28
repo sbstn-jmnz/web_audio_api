@@ -2,6 +2,7 @@ body {
   background-color: #0390AE;
   height: 100%;
   font-family: arial,sans-serif;
+  font-size: 0;
 }
 .container {
   margin: auto;
@@ -12,4 +13,10 @@ body {
 #keyboard {
   height: 150px;
   width: 600px;
+}
+
+#oscilloscope {
+  background-color: mediumvioletred;
+  border: 1px solid black;
+  border_border-bottom: 0;
 }
